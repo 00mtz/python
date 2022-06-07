@@ -12,4 +12,4 @@ ax2 = fig.add_subplot(1,2,2)
 ax2.imshow(img_hsv)
 
 
-plt.show
+plt.show()
