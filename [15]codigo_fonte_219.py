@@ -9,14 +9,29 @@ def da_hist (img, L = 256):
 
     for j in range(0, shape_img[1]):
         for i in range(0, shape_img[0]):
-            if(img[i,j] != 0):
+            if(img[i,j].any() != 0):
                 h[img[i,j]] = h[img[i,j]] + 1
 
     p = np.divide(h,shape_img[0]*shape_img[1])
 
     return p
 
-f = cv.imread('images/pompeiiFUCKTHETRAFO.png', cv.IMREAD_UNCHANGED)
+f = cv.imread('images/pompei.jpg', cv.IMREAD_UNCHANGED)
 
 L = 256
 fk = range(0, L)
+
+p = da_hist(f,L)
+
+fig = plt.figure()
+plt.bar(fk, p)
+plt.ylabel('ocorrencias', fontsize = 14)
+plt.xlabel('Niveis de Intesidade', fontsize = 14)
+
+fig.savefig('historama1.png', dpi = 300, bbox_inches = 'tight')
+
+x = cv.imread('historama1.png', cv.IMREAD_UNCHANGED)
+
+cv.imshow('histograma', x)
+cv.waitKey(0)
+cv.destroyAllWindows()
