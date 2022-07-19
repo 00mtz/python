@@ -7,7 +7,7 @@ mask = np.array([[0,1,0],[1,-4,1],[0,1,0]],np.float32)
 
 im_tr = cv.filter2D(im_br.astype(np.float32), -1, mask)
 
-c = -1
+c = -1  
 im_agc = im_br + c*im_tr
 
 cv.imwrite('output/pompei_sharpened.jpg', im_agc)
