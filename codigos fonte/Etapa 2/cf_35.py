@@ -2,26 +2,29 @@ import cv2 as cv
 import numpy as np 
 from matplotlib import pyplot as plt
 
-im = cv.imread('images/pompei_blurried.jpg', cv.IMREAD_UNCHANGED)
+img = cv.imread('images/pepitas.png', cv.IMREAD_UNCHANGED)
 
-mask = np.ones((3,3), np.float32)/9
+img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
-im_br = cv.filter2D(im.astype(np.float32), -1, mask)
+img_bin = img_gray < 100
 
-c = 2.5
-im_tr = im - im_br
-im_nit = im+c*im_tr
-
-fig_tr = plt.figure()
-plt.imshow(im, cmap='gray', vmin=0)
-ax1 = plt.gca()
-ax1.axes.xaxis.set_visible(False)
-ax1.axes.yaxis.set_visible(False)
+fig = plt.figure()
+plt.imshow(img, cmap = 'gray', vmin = 0)
+ax = plt.gca()
+ax.axes.xaxis.set_visible(False)
+ax.axes.yaxis.set_visible(False)
 plt.show(block=False)
 
-fig_nit = plt.figure()
-plt.imshow(im_nit, cmap='gray')
-ax2 = plt.gca()
-ax2.axes.xaxis.set_visible(False)
-ax2.axes.yaxis.set_visible(False)
+fig_gray = plt.figure()
+plt.imshow(img_gray, cmap='gray', vmin = 0)
+ax = plt.gca()
+ax.axes.xaxis.set_visible(False)
+ax.axes.yaxis.set_visible(False)
+plt.show(block=False)
+
+fig_bin = plt.figure()
+plt.imshow(img_bin, cmap='gray', vmin = 0)
+ax = plt.gca()
+ax.axes.xaxis.set_visible(False)
+ax.axes.yaxis.set_visible(False)
 plt.show()
