@@ -11,7 +11,7 @@ img_bin = img_gray < 100
 fig = plt.figure()
 plt.imshow(img, cmap = 'gray', vmin = 0)
 ax = plt.gca()
-ax.axes.xaxis.set_visible(False)
+ax.axes.xaxis.set_visible(True)
 ax.axes.yaxis.set_visible(False)
 plt.show(block=False)
 
