@@ -1,36 +1,10 @@
-from linecache import lazycache
-import cv2 as cv 
-import numpy as np 
-from matplotlib import pyplot as plt
+import cv2 as cv
+import numpy as np
 
-img = cv.imread('images/vitral.png', cv.IMREAD_UNCHANGED)
+img = cv.imread('images/sphere.png', cv.IMREAD_UNCHANGED)
 
-img_hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+struct_elem = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], np.uint8)
 
-shape_f = np.shape(img_hsv)
-img_bin = np.zeros(shape_f[0:2])
-for j in range(0, shape_f[1]):
-    for i in range(0,shape_f[0]):
-        if(img_hsv[i,j,0]>102
-        and img_hsv[i,j,0]<138
-        and img_hsv[i,j,1]>50
-        and img_hsv[i,j,2]>50):
-            img_bin[i,j] = 1
-        else:
-            img_bin[i,j] = 0
+img_bdr = img - cv.erode(img, struct_elem, iterations= 1)
 
-fig = plt.figure()
-img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-plt.imshow(img_rgb, cmap='gray', vmin = 0)
-ax = plt.gca()
-ax.axes.xaxis.set_visible(False)
-ax.axes.yaxis.set_visible(False)
-plt.tight_layout()
-plt.show(block = False)
-
-fig_bin = plt.figure()
-plt.imshow(img_bin, cmap = 'gray', vmin=0)
-ax.axes.xaxis.set_visible(False)
-ax.axes.yaxis.set_visible(False)
-plt.tight_layout()
-plt.show()
+cv.imwrite('output/boundary.png', img_bdr)
